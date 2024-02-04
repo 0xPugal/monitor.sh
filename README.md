@@ -30,5 +30,5 @@ chmod +x setup.sh bugblaze.sh
 
 ### Note
 + Confifure you api tokens in subfinder and amass config file for more subdomains
-+ All your telergam/discord/slack token in notify config file for notifications 
-+ If you want to use custom wordlists and resovers, change variable path in sentinel-X.sh (line 35,36,37)
++ Add your telergam/discord/slack token in notify config file for notifications 
++ If you want to use custom wordlists and resovers, change variable path in bugblaze.sh (line 32,33,34)
