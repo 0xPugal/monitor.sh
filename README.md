@@ -1,2 +1,31 @@
 # BugBlaze
-Continuous Reconnaissance and Vulnerability Scanning for Bug Bounties
+***Continuous Reconnaissance and Vulnerability Scanning for Bug Bounties***
+
+### Requirements
++ Install golang from [https://go.dev/doc/install](https://go.dev/doc/install)
+
+### Installation
+```
+https://github.com/0xPugazh/BugBlaze
+cd BugBlaze
+chmod +x setup.sh bugblaze.sh
+./bugblaze.sh
+```
+
+### Usage
+``` 
+./bugblaze.sh domain.com
+```
+
+### Tools included
++ Subdomain enumeration (Subfinder, Amass, Shuffledns)
++ DNS resolving ( PureDNS)
++ Port scanning (Naabu)
++ Vulnerability Scanning (Nuclei)
++ Resolvers (trickest)
++ Wordlists (n0kovo_subdomains)
+
+### Note
++ Confifure you api tokens in subfinder and amass config file for more subdomains
++ All your telergam/discord/slack token in notify config file for notifications 
++ If you want to use custom wordlists and resovers, change variable path in sentinel-X.sh (line 35,36,37)
