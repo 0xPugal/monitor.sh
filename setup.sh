@@ -20,7 +20,7 @@ go install -v github.com/tomnomnom/anew@latest
 go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 
 # Install wordlist and resolvers
-cd ~/sentinel-X/
+cd ~/BugBlaze/
 git clone https://github.com/trickest/resolvers
 wget https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt
 mv n0kovo_subdomains_huge.txt wordlists.txt
