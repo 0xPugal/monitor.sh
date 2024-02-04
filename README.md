@@ -1,5 +1,6 @@
 # BugBlaze
 ***Continuous Reconnaissance and Vulnerability Scanning for Bug Bounties***
+-----------
 ![BugBlaze](https://github.com/0xPugazh/BugBlaze/assets/75373225/4d1cb0df-375d-412f-ab31-f128c8e3a497)
 
 
