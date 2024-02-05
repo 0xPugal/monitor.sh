@@ -33,16 +33,15 @@ RESOLVERS="/root/BugBlaze/resolvers/resolvers.txt"
 RESOLVERS_TRUSTED="/root/BugBlaze/resolvers/resolvers-trusted.txt"
 WORDLISTS="/root/BugBlaze/wordlists.txt"
 
-# Update resolvers
-echo -e "${BOLD_CYAN}Updating resolvers...${NC}"
-cd /root/BugBlaze/resolvers/
-git pull
-echo " "
-echo "------------------------------------------------------------------------------------------------------------------------"
-
 mkdir -p /root/BugBlaze/recon/$DOMAIN/
 
 while true; do
+# Update resolvers
+    echo -e "${BOLD_CYAN}Updating resolvers...${NC}"
+    cd /root/BugBlaze/resolvers/
+    git pull
+    echo " "
+    echo "------------------------------------------------------------------------------------------------------------------------"
 
     # subdomain enumeration using Subfinder, Amass and Shuffledns
     echo -e "${BOLD_CYAN}Subdomain enumeration at $DOMAIN...${NC}"
