@@ -19,8 +19,8 @@ echo -e "${BOLD_RED}      ░                        ░                  ░ ${
 echo -e "${BOLD_RED}                                                                           ${NC}"
 
 if [ "$#" -eq 0 ]; then
-        echo -e " "
-        echo -e " "
+    echo -e " "
+    echo -e " "
     echo -e "Usage: ${BOLD_CYAN}./bugblaze.sh domain.com${NC}"
     exit 1
 fi
@@ -29,57 +29,57 @@ echo " "
 echo "------------------------------------------------------------------------------------------------------------------------"
 
 DOMAIN="$1"
-RESOLVERS="~/BugBlaze/resolvers/resolvers.txt"
-RESOLVERS_TRUSTED="~/BugBlaze/resolvers/resolvers-trusted.txt"
-WORDLISTS="~/BugBlaze/wordlists.txt"
+RESOLVERS="$HOME/BugBlaze/resolvers/resolvers.txt"
+RESOLVERS_TRUSTED="$HOME/BugBlaze/resolvers/resolvers-trusted.txt"
+WORDLISTS="$HOME/BugBlaze/wordlists.txt"
 
-mkdir -p ~/BugBlaze/output/$DOMAIN/
+mkdir -p "$HOME/BugBlaze/output/$DOMAIN/"
 
 while true; do
-# Update resolvers
+    # Update resolvers
     echo -e "${BOLD_CYAN}Updating resolvers...${NC}"
-    cd ~/BugBlaze/resolvers/
+    cd "$HOME/BugBlaze/resolvers/"
     git pull
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
-    # subdomain enumeration using Subfinder, Amass and Shuffledns
+    # subdomain enumeration using Subfinder, Amass, and Shuffledns
     echo -e "${BOLD_CYAN}Subdomain enumeration at $DOMAIN...${NC}"
-    subfinder -d $DOMAIN -all -silent | anew ~/BugBlaze/output/$DOMAIN/subs.txt
-    amass enum -d $DOMAIN -noalts -passive -norecursive | anew ~/BugBlaze/output/$DOMAIN/subs.txt
-    shuffledns -d $DOMAIN -silent -r $RESOLVERS -w $WORDLISTS | anew ~/BugBlaze/output/$DOMAIN/subs.txt
+    subfinder -d "$DOMAIN" -all -silent | anew "$HOME/BugBlaze/output/$DOMAIN/subs.txt"
+    amass enum -d "$DOMAIN" -noalts -passive -norecursive | anew "$HOME/BugBlaze/output/$DOMAIN/subs.txt"
+    shuffledns -d "$DOMAIN" -silent -r "$RESOLVERS" -w "$WORDLISTS" | anew "$HOME/BugBlaze/output/$DOMAIN/subs.txt"
     echo " "
-    echo "------------------------------------------------------------------------------------------------------------------------" 
-    
+    echo "------------------------------------------------------------------------------------------------------------------------"
+
     # Delete resolved.txt if it exists
-    [ -e ~/BugBlaze/output/$DOMAIN/resolved.txt ] && rm ~/BugBlaze/output/$DOMAIN/resolved.txt
+    [ -e "$HOME/BugBlaze/output/$DOMAIN/resolved.txt" ] && rm "$HOME/BugBlaze/output/$DOMAIN/resolved.txt"
 
     # Delete ports.txt if it exists
-    [ -e ~/BugBlaze/output/$DOMAIN/ports.txt ] && rm ~/BugBlaze/output/$DOMAIN/ports.txt
+    [ -e "$HOME/BugBlaze/output/$DOMAIN/ports.txt" ] && rm "$HOME/BugBlaze/output/$DOMAIN/ports.txt"
 
     # DNS resolving with PureDNS
     echo -e "${BOLD_CYAN}DNS resolving at $DOMAIN...${NC}"
-    puredns resolve  ~/BugBlaze/output/$DOMAIN/subs.txt --resolvers $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED --quiet --write ~/BugBlaze/output/$DOMAIN/resolved.txt
+    puredns resolve "$HOME/BugBlaze/output/$DOMAIN/subs.txt" --resolvers "$RESOLVERS" --resolvers-trusted "$RESOLVERS_TRUSTED" --quiet --write "$HOME/BugBlaze/output/$DOMAIN/resolved.txt"
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
     # Port scanning with Naabu
-    echo -e "${BOLD_CYAN}Portscanning at $DOMAIN...${NC}"
-    cat ~/BugBlaze/output/$DOMAIN/resolved.txt | parallel -j 100 echo {} | naabu -rate 3000 -silent -p 1-65535 -nmap | anew ~/BugBlaze/output/$DOMAIN/ports.txt
+    echo -e "${BOLD_CYAN}Port scanning at $DOMAIN...${NC}"
+    cat "$HOME/BugBlaze/output/$DOMAIN/resolved.txt" | parallel -j 100 echo {} | naabu -rate 3000 -silent -p 1-65535 -nmap | anew "$HOME/BugBlaze/output/$DOMAIN/ports.txt"
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
-    # Get current time
+    # Get the current time
     current_time=$(date +"%Y%m%d_%H%M%S")
 
     # Vulnerability scanning with Nuclei
     echo -e "${BOLD_CYAN}Vulnerability scanning at $DOMAIN...${NC}"
-    nuclei -silent -l ~/BugBlaze/output/$DOMAIN/ports.txt \
-    -es info,unknown -rl 500 -bs 250 -c 50 \
-    -ss template-spray \
-    -eid dns-rebinding,CVE-2000-0114,CVE-2017-5487 \
-    -ept ssl,tcp -etags creds-stuffing \
-    -stats -si 60 -o ~/BugBlaze/output/$DOMAIN/nuclei-$current_time.txt | notify -silent
+    nuclei -silent -l "$HOME/BugBlaze/output/$DOMAIN/ports.txt" \
+        -es info,unknown -rl 500 -bs 250 -c 50 \
+        -ss template-spray \
+        -eid dns-rebinding,CVE-2000-0114,CVE-2017-5487 \
+        -ept ssl,tcp -etags creds-stuffing \
+        -stats -si 60 -o "$HOME/BugBlaze/output/$DOMAIN/nuclei-$current_time.txt" | notify -silent
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
