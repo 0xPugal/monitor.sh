@@ -13,6 +13,7 @@ sudo make install
 ## Install tools
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 go install -v github.com/owasp-amass/amass/v3/...@master
+go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
 go install github.com/d3mondev/puredns/v2@latest
 go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
 go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
@@ -30,6 +31,7 @@ mv n0kovo_subdomains_huge.txt wordlists.txt
 # check if tools are installed
 hash subfinder 2>/dev/null && echo "subfinder: Installed" || echo "subfinder: Not Installed"
 hash amass 2>/dev/null && echo "amass: Installed" || echo "amass: Not Installed"
+hash shuffledns 2>/dev/null && echo "shuffledns: Installed" || echo "shuffledns: Not Installed"
 hash puredns 2>/dev/null && echo "puredns: Installed" || echo "puredns: Not Installed"
 hash naabu 2>/dev/null && echo "naabu: Installed" || echo "naabu: Not Installed"
 hash nuclei 2>/dev/null && echo "nuclei: Installed" || echo "nuclei: Not Installed"
