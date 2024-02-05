@@ -19,13 +19,7 @@ go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 go install -v github.com/tomnomnom/anew@latest
 go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 
-sudo ~/go/bin/subfinder /usr/bin/
-sudo ~/go/bin/amass /usr/bin/
-sudo ~/go/bin/puredns /usr/bin/
-sudo ~/go/bin/naabu /usr/bin/
-sudo ~/go/bin/nuclei /usr/bin/
-sudo ~/go/bin/anew /usr/bin/
-sudo ~/go/bin/notify /usr/bin/
+sudo cp ~/go/bin/* /usr/bin/
 
 # Install wordlist and resolvers
 cd ~/BugBlaze/
@@ -43,5 +37,5 @@ hash anew 2>/dev/null && echo "anew: Installed" || echo "anew: Not Installed"
 hash notify 2>/dev/null && echo "notify: Installed" || echo "notify: Not Installed"
 [ -f ~/BugBlaze/wordlists.txt ] && echo "wordlists.txt found" || echo "wordlists.txt not found" 
 [ -f ~/BugBlaze/resolvers/resolvers.txt ] && echo "resolvers.txt found" || echo "resolvers.txt not found"
-
+echo " "
 echo "Done!!!"
