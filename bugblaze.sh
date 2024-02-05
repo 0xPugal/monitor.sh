@@ -29,43 +29,43 @@ echo " "
 echo "------------------------------------------------------------------------------------------------------------------------"
 
 DOMAIN="$1"
-RESOLVERS="/root/BugBlaze/resolvers/resolvers.txt"
-RESOLVERS_TRUSTED="/root/BugBlaze/resolvers/resolvers-trusted.txt"
-WORDLISTS="/root/BugBlaze/wordlists.txt"
+RESOLVERS="~/BugBlaze/resolvers/resolvers.txt"
+RESOLVERS_TRUSTED="~/BugBlaze/resolvers/resolvers-trusted.txt"
+WORDLISTS="~/BugBlaze/wordlists.txt"
 
-mkdir -p /root/BugBlaze/recon/$DOMAIN/
+mkdir -p ~/BugBlaze/output/$DOMAIN/
 
 while true; do
 # Update resolvers
     echo -e "${BOLD_CYAN}Updating resolvers...${NC}"
-    cd /root/BugBlaze/resolvers/
+    cd ~/BugBlaze/resolvers/
     git pull
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
     # subdomain enumeration using Subfinder, Amass and Shuffledns
     echo -e "${BOLD_CYAN}Subdomain enumeration at $DOMAIN...${NC}"
-    subfinder -d $DOMAIN -all -silent | anew /root/BugBlaze/recon/$DOMAIN/subs.txt
-    amass enum -d $DOMAIN -noalts -passive -norecursive | anew /root/BugBlaze/recon/$DOMAIN/subs.txt
-    shuffledns -d $DOMAIN -silent -r $RESOLVERS -w $WORDLISTS | anew /root/BugBlaze/recon/$DOMAIN/subs.txt
+    subfinder -d $DOMAIN -all -silent | anew ~/BugBlaze/output/$DOMAIN/subs.txt
+    amass enum -d $DOMAIN -noalts -passive -norecursive | anew ~/BugBlaze/output/$DOMAIN/subs.txt
+    shuffledns -d $DOMAIN -silent -r $RESOLVERS -w $WORDLISTS | anew ~/BugBlaze/output/$DOMAIN/subs.txt
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------" 
     
     # Delete resolved.txt if it exists
-    [ -e /root/BugBlaze/recon/$DOMAIN/resolved.txt ] && rm /root/BugBlaze/recon/$DOMAIN/resolved.txt
+    [ -e ~/BugBlaze/output/$DOMAIN/resolved.txt ] && rm ~/BugBlaze/output/$DOMAIN/resolved.txt
 
     # Delete ports.txt if it exists
-    [ -e /root/BugBlaze/recon/$DOMAIN/ports.txt ] && rm /root/BugBlaze/recon/$DOMAIN/ports.txt
+    [ -e ~/BugBlaze/output/$DOMAIN/ports.txt ] && rm ~/BugBlaze/output/$DOMAIN/ports.txt
 
     # DNS resolving with PureDNS
     echo -e "${BOLD_CYAN}DNS resolving at $DOMAIN...${NC}"
-    puredns resolve  /root/BugBlaze/recon/$DOMAIN/subs.txt --resolvers $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED --quiet --write /root/BugBlaze/recon/$DOMAIN/resolved.txt
+    puredns resolve  ~/BugBlaze/output/$DOMAIN/subs.txt --resolvers $RESOLVERS --resolvers-trusted $RESOLVERS_TRUSTED --quiet --write ~/BugBlaze/output/$DOMAIN/resolved.txt
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
     # Port scanning with Naabu
     echo -e "${BOLD_CYAN}Portscanning at $DOMAIN...${NC}"
-    cat /root/BugBlaze/recon/$DOMAIN/resolved.txt | parallel -j 100 echo {} | naabu -rate 3000 -silent -p 1-65535 -nmap | anew /root/BugBlaze/recon/$DOMAIN/ports.txt
+    cat ~/BugBlaze/output/$DOMAIN/resolved.txt | parallel -j 100 echo {} | naabu -rate 3000 -silent -p 1-65535 -nmap | anew ~/BugBlaze/output/$DOMAIN/ports.txt
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
@@ -74,12 +74,12 @@ while true; do
 
     # Vulnerability scanning with Nuclei
     echo -e "${BOLD_CYAN}Vulnerability scanning at $DOMAIN...${NC}"
-    nuclei -silent -l /root/BugBlaze/recon/$DOMAIN/ports.txt \
+    nuclei -silent -l ~/BugBlaze/output/$DOMAIN/ports.txt \
     -es info,unknown -rl 500 -bs 250 -c 50 \
     -ss template-spray \
     -eid dns-rebinding,CVE-2000-0114,CVE-2017-5487 \
     -ept ssl,tcp -etags creds-stuffing \
-    -stats -si 60 -o /root/BugBlaze/recon/$DOMAIN/nuclei-$current_time.txt | notify -silent
+    -stats -si 60 -o ~/BugBlaze/output/$DOMAIN/nuclei-$current_time.txt | notify -silent
     echo " "
     echo "------------------------------------------------------------------------------------------------------------------------"
 
