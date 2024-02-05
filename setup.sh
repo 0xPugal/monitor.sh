@@ -19,13 +19,13 @@ go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 go install -v github.com/tomnomnom/anew@latest
 go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 
-sudo /root/go/bin/subfinder /usr/bin/
-sudo /root/go/bin/amass /usr/bin/
-sudo /root/go/bin/puredns /usr/bin/
-sudo /root/go/bin/naabu /usr/bin/
-sudo /root/go/bin/nuclei /usr/bin/
-sudo /root/go/bin/anew /usr/bin/
-sudo /root/go/bin/notify /usr/bin/
+sudo ~/go/bin/subfinder /usr/bin/
+sudo ~/go/bin/amass /usr/bin/
+sudo ~/go/bin/puredns /usr/bin/
+sudo ~/go/bin/naabu /usr/bin/
+sudo ~/go/bin/nuclei /usr/bin/
+sudo ~/go/bin/anew /usr/bin/
+sudo ~/go/bin/notify /usr/bin/
 
 # Install wordlist and resolvers
 cd ~/BugBlaze/
@@ -41,7 +41,7 @@ hash naabu 2>/dev/null && echo "naabu: Installed" || echo "naabu: Not Installed"
 hash nuclei 2>/dev/null && echo "nuclei: Installed" || echo "nuclei: Not Installed"
 hash anew 2>/dev/null && echo "anew: Installed" || echo "anew: Not Installed"
 hash notify 2>/dev/null && echo "notify: Installed" || echo "notify: Not Installed"
-[ -f /root/BugBlaze/wordlists.txt ] && echo "wordlists.txt found" || echo "wordlists.txt not found" 
-[ -f /root/BugBlaze/resolvers/resolvers.txt ] && echo "resolvers.txt found" || echo "resolvers.txt not found"
+[ -f ~/BugBlaze/wordlists.txt ] && echo "wordlists.txt found" || echo "wordlists.txt not found" 
+[ -f ~/BugBlaze/resolvers/resolvers.txt ] && echo "resolvers.txt found" || echo "resolvers.txt not found"
 
 echo "Done!!!"
