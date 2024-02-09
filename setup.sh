@@ -4,9 +4,12 @@
 sudo apt install -y parallel
 sudo apt install -y libpcap-dev
 
+## Determine the directory where the script is located
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
 ## Install massdns
-git clone https://github.com/blechschmidt/massdns.git
-cd massdns
+git clone https://github.com/blechschmidt/massdns.git "$SCRIPT_DIR/massdns"
+cd "$SCRIPT_DIR/massdns"
 make
 sudo make install
 
@@ -23,10 +26,9 @@ go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 sudo cp ~/go/bin/* /usr/bin/
 
 # Install wordlist and resolvers
-cd ~/BugBlaze/
+cd "$SCRIPT_DIR"
 git clone https://github.com/trickest/resolvers
-wget https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt
-mv n0kovo_subdomains_huge.txt wordlists.txt
+wget https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt -O wordlists.txt
 
 # check if tools are installed
 hash subfinder 2>/dev/null && echo "subfinder: Installed" || echo "subfinder: Not Installed"
@@ -37,7 +39,7 @@ hash naabu 2>/dev/null && echo "naabu: Installed" || echo "naabu: Not Installed"
 hash nuclei 2>/dev/null && echo "nuclei: Installed" || echo "nuclei: Not Installed"
 hash anew 2>/dev/null && echo "anew: Installed" || echo "anew: Not Installed"
 hash notify 2>/dev/null && echo "notify: Installed" || echo "notify: Not Installed"
-[ -f ~/BugBlaze/wordlists.txt ] && echo "wordlists.txt found" || echo "wordlists.txt not found" 
-[ -f ~/BugBlaze/resolvers/resolvers.txt ] && echo "resolvers.txt found" || echo "resolvers.txt not found"
+[ -f "$SCRIPT_DIR/wordlists.txt" ] && echo "wordlists.txt found" || echo "wordlists.txt not found" 
+[ -f "$SCRIPT_DIR/resolvers/resolvers.txt" ] && echo "resolvers.txt found" || echo "resolvers.txt not found"
 echo " "
 echo "Done!!!"
