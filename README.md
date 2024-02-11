@@ -29,6 +29,6 @@ chmod +x setup.sh bugblaze.sh
 + Wordlists (n0kovo_subdomains)
 
 ### Note
-+ Confifure you api tokens in subfinder and amass config file for more subdomains
++ Configure you api tokens in subfinder and amass config file for more subdomains
 + Add your telergam/discord/slack token in notify config file for notifications 
 + If you want to use custom wordlists and resovers, change variable path in bugblaze.sh (line 32,33,34)
