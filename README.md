@@ -9,10 +9,10 @@
 
 ### Installation
 ```
-https://github.com/0xPugazh/BugBlaze
+git clone https://github.com/0xPugazh/BugBlaze
 cd BugBlaze
 chmod +x setup.sh bugblaze.sh
-./bugblaze.sh
+./setup.sh
 ```
 
 ### Usage
