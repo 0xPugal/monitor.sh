@@ -61,11 +61,11 @@ echo ""
 sudo cp ~/go/bin/* /usr/bin/
 
 # Install wordlist and resolvers
-echo -e "${BOLD_CYAN}Updating resolvers..."
+echo -e "${BOLD_CYAN}Updating resolvers...${NC}"
 cd "$SCRIPT_DIR"
 git clone https://github.com/trickest/resolvers
 echo ""
-echo -e "${BOLD_CYAN}Downloading wordlists..."
+echo -e "${BOLD_CYAN}Downloading wordlists...${NC}"
 wget https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt -O wordlists.txt
 echo ""
 
