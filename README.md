@@ -29,9 +29,9 @@ chmod +x setup.sh bugblaze.sh
 + Wordlists (n0kovo_subdomains)
 
 ### Note
-+ Configure you api tokens in subfinder and amass config file for more subdomains
-+ Add your telergam/discord/slack token in notify config file for notifications 
-+ If you want to use custom wordlists and resovers, change variable path in bugblaze.sh (line 32,33,34)
++ Configure you api tokens in ``subfinder`` and ``amass`` config file for more subdomains
++ Add your telergam/discord/slack token in ``notify`` config file for notifications 
++ If you want to use custom wordlists and resovers, change variable path in bugblaze.sh (line ``36``,``37``,``38``)
 
 ### Get 200$ credits on DO
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=87789189e3ea&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
