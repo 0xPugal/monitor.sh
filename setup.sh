@@ -33,28 +33,28 @@ sudo make install
 echo ""
 
 ## Install tools
-echo -e "${BOLD_CYAN}subfinder...${NC}"
+echo -e "${BOLD_CYAN}Installing subfinder...${NC}"
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 echo ""
-echo -e "${BOLD_CYAN}amass...${NC}"
+echo -e "${BOLD_CYAN}Installing amass...${NC}"
 go install -v github.com/owasp-amass/amass/v3/...@master
 echo ""
-echo -e "${BOLD_CYAN}shuffleDNS...${NC}"
+echo -e "${BOLD_CYAN}Installing shuffleDNS...${NC}"
 go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
 echo ""
-echo -e "${BOLD_CYAN}pureDNS...${NC}"
+echo -e "${BOLD_CYAN}Installing pureDNS...${NC}"
 go install github.com/d3mondev/puredns/v2@latest
 echo ""
-echo -e "${BOLD_CYAN}naabu...${NC}"
+echo -e "${BOLD_CYAN}Installing naabu...${NC}"
 go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
 echo ""
-echo -e "${BOLD_CYAN}Nuclei...${NC}"
+echo -e "${BOLD_CYAN}Installing Nuclei...${NC}"
 go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 echo ""
-echo -e "${BOLD_CYAN}anew...${NC}"
+echo -e "${BOLD_CYAN}Installing anew...${NC}"
 go install -v github.com/tomnomnom/anew@latest
 echo ""
-echo -e "${BOLD_CYAN}notify...${NC}"
+echo -e "${BOLD_CYAN}Installing notify...${NC}"
 go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 echo ""
 
